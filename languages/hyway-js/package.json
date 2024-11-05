@@ -1,0 +1,25 @@
+{
+  "name": "hyway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "coverage": "nyc npm test",
+    "test": "cucumber-js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.0.1",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.8.4",
+    "@types/sinon": "^17.0.3",
+    "jsdom": "^25.0.1",
+    "nyc": "^17.1.0",
+    "sinon": "^19.0.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.3"
+  }
+}

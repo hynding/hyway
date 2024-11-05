@@ -1,0 +1,10 @@
+default:
+  parallel: 2
+  paths:
+    - "../../features/**/*.feature"
+  requireModule:
+    - "ts-node/register"
+    - "tsconfig-paths/register"
+  require:
+    - "tests/**/*.ts"
+  

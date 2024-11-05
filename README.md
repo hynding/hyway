@@ -1,4 +1,2 @@
 # hyway
-My opinionated way of implementing a functional, support library using the latest, broadly-supported features of JavaScript.
-
-# Style Guide
+A collection of commonly functions I use in my projects
