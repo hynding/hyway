@@ -28,5 +28,3 @@ Feature: Math Precision
             | 0.1, 0.2 | 0.02   |
         When I get the product of the values
         Then the result should match the provided answer
-
-    Scenario: 

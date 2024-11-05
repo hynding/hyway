@@ -2,8 +2,8 @@ default:
   parallel: 2
   paths:
     - "../../features/**/*.feature"
-  loader:
-    - "./cucumber-esm-loader.mjs"
-  import:
+  requireModule:
+    - tsx/cjs
+  require:
     - "tests/**/*.ts"
   
