@@ -2,9 +2,8 @@ default:
   parallel: 2
   paths:
     - "../../features/**/*.feature"
-  requireModule:
-    - "ts-node/register"
-    - "tsconfig-paths/register"
-  require:
+  loader:
+    - "./cucumber-esm-loader.mjs"
+  import:
     - "tests/**/*.ts"
   
