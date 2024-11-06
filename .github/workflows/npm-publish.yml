@@ -18,7 +18,7 @@ jobs:
         run: npm test
       - name: Run build
         working-directory: ./languages/typescript
-        run: npm test
+        run: npm run build
       - uses: JS-DevTools/npm-publish@v3
         with:
           package: ./languages/typescript
