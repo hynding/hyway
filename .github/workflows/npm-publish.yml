@@ -9,11 +9,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
       - run: npm test
+        working-directory: ./languages/typescript
       - run: npm run build
+        working-directory: ./languages/typescript
       - uses: JS-DevTools/npm-publish@v3
         with:
+          package: ./languages/typescript
           dry-run: true
-          package: languages/typescript
           token: ${{ secrets.NPM_TOKEN }}
