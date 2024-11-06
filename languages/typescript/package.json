@@ -1,16 +1,19 @@
 {
   "name": "hyway",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "A dependency-free, lightweight, and opinionated utility library for building web applications.",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hynding/hyway.git"
+  },
   "scripts": {
     "build": "tsc --build",
     "coverage": "nyc npm test",
     "test": "cucumber-js"
   },
-  "author": "",
+  "homepage": "https://github.com/hynding/hyway",
+  "author": "Steve Hynding <steve.hynding@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@cucumber/cucumber": "^11.0.1",
@@ -22,5 +25,20 @@
     "sinon": "^19.0.2",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"
-  }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./dist/*": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "dist"
+  ]
 }
