@@ -10,10 +10,15 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "22"
-      - run: npm test
+      - name: Install dependencies
         working-directory: ./languages/typescript
-      - run: npm run build
+        run: npm install
+      - name: Run tests
         working-directory: ./languages/typescript
+        run: npm test
+      - name: Run build
+        working-directory: ./languages/typescript
+        run: npm test
       - uses: JS-DevTools/npm-publish@v3
         with:
           package: ./languages/typescript
