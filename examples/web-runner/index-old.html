@@ -1,0 +1,249 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Web Runner Example</title>
+        <style>
+            canvas {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas" width="400" height="200"></canvas>
+        <script type="module">
+            import { Game } from './Game.js';
+            import { Player } from './Player.js';
+
+            // const canvasElement = qs('#canvas');
+            // const canvas = canvasElement.getContext('2d');
+            const game = new Game();
+            const canvas = game.platform.container
+            const context = game.platform.context
+            //
+            let obstaces = []
+            let isGameOver = false;
+
+            const ground = {
+                x: 0,
+                // y: canvasElement.height - 20,
+                // width: canvasElement.width,
+                y: canvas.height - 20,
+                width: canvas.width,
+                //
+                height: 20
+            };
+
+            let player = new Player();
+
+            let spotCollision = false;
+            let initSpeed = 0.4;
+            let speed = initSpeed;
+            let maxSpeed = 2;
+            let acceleration = 1.005;
+            let moveLeft = false;
+            let moveRight = false;
+            let moveUp = false;
+            let moveDown = false;
+            window.addEventListener('keydown', (event) => {
+                switch (event.key) {
+                    case 'ArrowUp':
+                        moveUp = true;
+                        break;
+                    case 'ArrowDown':
+                        moveDown = true;
+                        break;
+                    case 'ArrowLeft':
+                        moveLeft = true;
+                        break;
+                    case 'ArrowRight':
+                        moveRight = true;
+                        break;
+                }
+            });
+            window.addEventListener('keyup', (event) => {
+                switch (event.code) {
+                    case 'ArrowUp':
+                        moveUp = false;
+                        break;
+                    case 'ArrowDown':
+                        moveDown = false;
+                        break;
+                    case 'ArrowLeft':
+                        moveLeft = false;
+                        break;
+                    case 'ArrowRight':
+                        moveRight = false;
+                        break;
+                    case 'Space':
+                        obstaces = [];
+                        generateObstacle();
+                        speed = initSpeed;
+                        player.reset();
+                        isGameOver = false;
+                        step();
+                        console.log('reset');
+                        break;
+                }
+            });
+
+            function generateObstacle() {
+                const isPlatform = Math.random() < 0.5;
+                const isGroundObstacle = Math.random() < 0.5;
+                const obstacle = {
+                    // x: Math.random() * (canvasElement.width - 30) + (canvasElement.width),
+                    x: Math.random() * (canvas.width - 30) + (canvas.width),
+                    y: ground.y - (isGroundObstacle ? 40 : 60),
+                    width: 30,
+                    height: 40,
+                    color: isPlatform ? 'green' : 'red',
+                    isPlatform
+                };
+                obstaces.push(obstacle);
+            }
+
+            function step() {
+                if (isGameOver) {
+                    context.fillStyle = 'black';
+                    context.font = '30px Arial';
+                    // canvas.fillText('Game Over', canvasElement.width / 2 - 70, canvasElement.height / 2);
+                    context.fillText('Game Over', canvas.width / 2 - 70, canvas.height / 2);
+                    return;
+                }
+
+                // Clear the canvas
+                // canvas.clearRect(0, 0, canvasElement.width, canvasElement.height);
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                if (speed < maxSpeed) {
+                    speed = Math.min(speed * acceleration, maxSpeed);
+                }
+
+                if (!player.isCrouching) {
+                    if (moveUp && !player.verticleDirection) {
+                        player.jumpingSpot = player.y + player.height;
+                        player.jumpSpeed = player.attributes.startJumpSpeed;
+                        player.verticleDirection = -1;
+                    // was jumping up, needs to start falling
+                    } else if (!moveUp && player.verticleDirection === -1) {
+                        player.fallSpeed = player.attributes.startFallSpeed;
+                        player.verticleDirection = 1;
+                    }
+
+                    // jumping up
+                    if (player.verticleDirection < 0) {
+                        player.jumpSpeed *= player.attributes.jumpAcceleration;
+                        player.y -= player.jumpSpeed;
+
+                        if (player.y < player.jumpingSpot - (player.y + player.attributes.maxJumpHeight)) {
+                            player.y = player.jumpingSpot - (player.y + player.attributes.maxJumpHeight)
+                            player.fallSpeed = player.attributes.startFallSpeed;
+                            player.jumpSpeed = player.attributes.startJumpSpeed;
+                            player.verticleDirection = 1;
+                        }
+                    } else if (player.verticleDirection > 0) {
+                        player.fallSpeed *= player.attributes.fallAcceleration;
+                        player.y += player.fallSpeed;
+
+                        if (player.y + player.height >= ground.y) {
+                            player.y = ground.y - player.height;
+                            player.fallSpeed = player.attributes.startFallSpeed;
+                            player.verticleDirection = 0;
+                        }
+                    }
+                }
+
+
+                // crouching
+                if (player.verticleDirection === 0) {
+                    if (moveDown) {
+                        player.isCrouching = true;
+                        if (player.width < player.attributes.crouchWidth) {
+                            player.width += player.attributes.crouchSpeed;
+                        } else {
+                            player.width = player.attributes.crouchWidth;
+                        }
+                        if (player.height > player.attributes.crouchHeight) {
+                            player.height -= player.attributes.crouchSpeed;
+                        } else {
+                            player.height = player.attributes.crouchHeight;
+                        }
+                    } else {
+                        if (player.width > player.attributes.standingWidth) {
+                            player.width -= player.attributes.crouchSpeed;
+                        } else {
+                            player.width = player.attributes.standingWidth;
+                        }
+                        if (player.height < player.attributes.standingHeight) {
+                            player.height += player.attributes.crouchSpeed;
+                        } else {
+                            player.height = player.attributes.standingHeight;
+                        }
+                        if (player.width === player.attributes.standingWidth && player.height === player.attributes.standingHeight) {
+                            player.isCrouching = false;
+                        }
+                    }
+                    if (!player.isCrouching && player.y + player.height < ground.y) {
+                        player.verticleDirection = 1;
+                    } else {
+                        player.y = ground.y - player.height;
+                    }
+                }
+
+                // draw a ground
+                context.beginPath();
+                context.moveTo(ground.x, ground.y);
+                context.lineTo(ground.width, ground.y);
+                context.strokeStyle = 'black';
+                context.lineWidth = 2;
+                context.stroke();
+                context.closePath();
+
+                obstaces.forEach(obstacle => {
+                    obstacle.x -= speed;
+                    if (obstacle.x + obstacle.width < 0) {
+                        obstaces.splice(obstaces.indexOf(obstacle), 1);
+                        generateObstacle();
+                        return
+                    }
+                    // draw obstacle when in bounds
+                    if (obstacle.x < canvas.width && obstacle.x + obstacle.width > 0) {
+
+                        context.fillStyle = obstacle.color;
+                        context.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+
+
+                        // check for collision with the player
+                        if (player.isWithinBounds(obstacle)) {
+                            if (obstacle.isPlatform) {
+                                if (player.wasAbove(obstacle)) {
+                                    player.y = obstacle.y - player.height;
+                                    player.fallSpeed = player.attributes.startFallSpeed;
+                                    player.verticleDirection = 0;
+                                } else if (player.wasBelow(obstacle)) {
+                                    player.isCrouching = true
+                                    player.y = obstacle.y + obstacle.height;
+                                    player.width = player.attributes.crouchWidth;
+                                    player.height = player.attributes.crouchHeight;
+                                }
+                            } else {
+                                // game over
+                                spotCollision = true;
+                                isGameOver = true;
+                            }
+                        }
+                    }
+                });
+
+                // draw the player
+                context.fillStyle = player.attributes.color;
+                context.fillRect(player.x, player.y, player.width, player.height);
+
+
+                requestAnimationFrame(step);
+            }
+            generateObstacle();
+            step();
+        </script>
+    </body>
+</html>

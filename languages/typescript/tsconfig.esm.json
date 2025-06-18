@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "es6",
+      "moduleResolution": "bundler",
+      "rewriteRelativeImportExtensions": true,
+      "strict": true,
+      "target": "es6",
+      "outDir": "dist"
+    },
+    "exclude": [
+      "tests/**/*.ts"
+    ]
+  }

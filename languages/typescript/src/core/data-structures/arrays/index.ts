@@ -1,0 +1,8 @@
+// export { getAdjacentMathendArray } from './getAdjacentMathendArray.js'
+// export { getFlattenedArray } from './getFlattenedArray.js'
+// export { getRandomIndexFromArray } from './getRandomIndexFromArray.js'
+// export { getShuffledArray } from './getShuffledArray.js'
+export * from './getAdjacentMathendArray.js'
+export * from './getFlattenedArray.js'
+export * from './getRandomIndexFromArray.js'
+export * from './getShuffledArray.js'

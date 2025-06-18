@@ -1,0 +1,11 @@
+services:
+  hyway:
+    image: node:22
+    container_name: ts-package
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8077:8077"
+    command: npm run dev:serve
+

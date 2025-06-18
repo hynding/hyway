@@ -1,0 +1,82 @@
+<template id="test-component">
+    <script type="module">
+        import { component } from 'hyway/web'
+        component({
+            name: 'test-component',
+            props: {
+                items: [
+                    { id: 1, name: 'Item 1' },
+                    { id: 2, name: 'Item 2' },
+                    { id: 3, name: 'Item 3' }
+                ]
+            },
+            data: {
+                test: 'Test',
+                showConditional: true,
+                showDisplay: true,
+            },
+            computed: {
+                test2() {
+                    return this.test + ' 2'
+                },
+                test3() {
+                    return this.test2() + ' 3'
+                }
+            },
+            methods: {
+                increment() {
+                    this.test = this.test + '!'
+                },
+                addListItem() {
+                    console.log('Adding list item')
+                    this.items = [
+                        ...this.items,
+                        { id: this.items.length + 1, name: 'Item ' + (this.items.length + 1) }
+                    ]
+                },
+                toggleConditional() {
+                    this.showConditional = !this.showConditional
+                },
+                toggleDisplay() {
+                    this.showDisplay = !this.showDisplay
+                },
+                async getData() {
+                    const response = await fetch('./data.json')
+                    const data = await response.json()
+                    this.test = data.name
+                }
+            },
+            async mounted() {
+                await this.getData()
+            }
+        })
+    </script>
+    <template>
+        <p data-bind="test">Hi</p>
+        <p data-bind="test2">Hi</p>
+        <p data-bind="test3">Hi</p>
+        <p>1st list</p>
+        <ul data-for-each="item in items" data-key="index.id">
+            <li><b data-bind="item.name"></b></li>
+        </ul>
+        <p>2nd list</p>
+        <ul data-for-each="item in items">
+            <li><u data-bind="item.name"></u></li>
+        </ul>
+        <p>
+            <slot></slot>
+        </p>
+        <input type="text" data-value="test" />
+        <button data-click="increment">Increment</button>
+        <br />
+        <button data-click="addListItem">Add list item</button>
+        <div data-when="showConditional">
+            <p>I am Conditional</p>
+        </div>
+        <button data-click="toggleConditional">Toggle Conditional</button>
+        <div data-show="showDisplay">
+            <p>I am Display</p>
+        </div>
+        <button data-click="toggleDisplay">Toggle Display</button>
+    </template>
+</template>

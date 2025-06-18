@@ -1,0 +1,8 @@
+// export { getBoxMatrix } from './getBoxMatrix.js'
+// export { getColumnMatrix } from './getColumnMatrix.js'
+// export { getPentominoMatrix } from './getPentominoMatrix.js'
+// export { getRowMatrix } from './getRowMatrix.js'
+export * from './getBoxMatrix.js'
+export * from './getColumnMatrix.js'
+export * from './getPentominoMatrix.js'
+export * from './getRowMatrix.js'
