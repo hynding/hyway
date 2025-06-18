@@ -1,6 +1,6 @@
 {
   "name": "hyway",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A dependency-free, lightweight, and opinionated utility library for building web applications.",
   "type": "module",
   "repository": {
