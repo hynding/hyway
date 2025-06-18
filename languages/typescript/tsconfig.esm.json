@@ -6,7 +6,8 @@
       "rewriteRelativeImportExtensions": true,
       "strict": true,
       "target": "es6",
-      "outDir": "dist"
+      "outDir": "dist",
+      "rootDir": "src"
     },
     "exclude": [
       "tests/**/*.ts"

@@ -36,19 +36,37 @@
     "tsx": "^4.19.2",
     "typescript": "^5.8.3"
   },
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "./dist/*": {
-      "import": "./dist/*.js",
-      "types": "./dist/*.d.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./web": {
+      "import": "./dist/web/index.js",
+      "types": "./dist/web/index.d.ts"
+    },
+    "./web/*": {
+      "import": "./dist/web/*.js",
+      "types": "./dist/web/*.d.ts"
+    },
+    "./node": {
+      "import": "./dist/node/index.js",
+      "types": "./dist/node/index.d.ts"
+    },
+    "./node/*": {
+      "import": "./dist/node/*.js",
+      "types": "./dist/node/*.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./core/*": {
+      "import": "./dist/core/*.js",
+      "types": "./dist/core/*.d.ts"
     },
     "./package.json": "./package.json"
-  },
-  "directories": {
-    "dist": "dist"
-  },
-  "files": [
-    "dist"
-  ]
+  }
 }
