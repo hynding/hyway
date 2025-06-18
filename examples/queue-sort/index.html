@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Queue Sort Example</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "hyway/core": "http://localhost:8077/core/index.js",
+          "hyway/web": "http://localhost:8077/web/index.js"
+        }
+      }
+    </script>
+    <script src="./init.js" defer type="module"></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <h1>Queue Sort Example</h1>
+    <div class="options"></div>
+    <div>
+      <input id="queue-size" type="number" value="4" min="1" max="8" />
+      <button class="add-container">Add Empty Container</button>
+    </div>
+    <div class="containers"></div>
+    <div>
+      <button id="reset">Reset</button>
+      <button id="clear">Clear</button>
+      <button id="possible">Get Next Moves</button>
+      <button id="solve">Solve</button>
+      <button id="step-through-solution">Step through solution</button>
+    </div>
+    <div id="solution"></div>
+    <h2>Possible moves</h2>
+    <div id="possible-moves"></div>
+  </body>
+</html>
