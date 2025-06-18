@@ -1,6 +1,6 @@
 {
   "name": "hyway",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A dependency-free, lightweight, and opinionated utility library for building web applications.",
   "type": "module",
   "repository": {
@@ -8,8 +8,13 @@
     "url": "git://github.com/hynding/hyway.git"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.esm.json",
+    "build:next": "tsc -p tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
     "coverage": "nyc npm test",
+    "dev": "tsc -p tsconfig.esm.json --watch",
+    "replace-alias": "tsc-alias -p tsconfig.esm.json -w",
+    "serve": "http-server ./dist/src/ -p 8077 -d -c-1 --cors",
+    "dev:serve": "npm install && concurrently \"npm:dev\" \"npm:replace-alias\" \"npm:serve\"",
     "test": "cucumber-js"
   },
   "homepage": "https://github.com/hynding/hyway",
@@ -20,15 +25,19 @@
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.8.4",
     "@types/sinon": "^17.0.3",
+    "concurrently": "^9.1.2",
+    "http-server": "^14.1.1",
     "jsdom": "^25.0.1",
+    "nodemon": "^3.1.10",
     "nyc": "^17.1.0",
     "rimraf": "^6.0.1",
     "sinon": "^19.0.2",
+    "tsc-alias": "^1.8.15",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.8.3"
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     "./dist/*": {
       "import": "./dist/*.js",

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { Given, When, Then, world } from '@cucumber/cucumber'
-import { DirectAcyclicGraph } from '@/data-structures/graphs/DirectAcyclicGraph'
+import { DirectAcyclicGraph } from '@/core/data-structures/graphs/DirectAcyclicGraph'
 
 type TestNode = { id: string, value: string }
 const testNode = (id: string, value: string): TestNode => {

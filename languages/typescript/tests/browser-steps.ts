@@ -1,6 +1,6 @@
 import { Given, When, Then, world } from '@cucumber/cucumber'
 import { JSDOM } from 'jsdom'
-import { elementFactory } from '@/dom-helpers/elementFactory'
+import { elementFactory } from '@/web/dom-helpers/elementFactory'
 
 Given("the following HTML", (html: string) => {
     world.dom = new JSDOM(html)

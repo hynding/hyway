@@ -1,8 +1,8 @@
 import assert from 'assert'
 import { Given, When, Then, world } from '@cucumber/cucumber'
-import { getSumFloat } from '@/data-types/floats/getSumFloat'
-import { getProductFloat } from '@/data-types/floats/getProductFloat'
-import { getAdjacentMathendArray } from '@/data-structures/arrays/getAdjacentMathendArray'
+import { getSumFloat } from '@/core/data-types/floats/getSumFloat'
+import { getProductFloat } from '@/core/data-types/floats/getProductFloat'
+import { getAdjacentMathendArray } from '@/core/data-structures/arrays/getAdjacentMathendArray'
 
 Given("the values {float} and {float}", (value1: number, value2: number) => {
     world.values = [value1, value2]
