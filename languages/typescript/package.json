@@ -1,6 +1,6 @@
 {
   "name": "hyway",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A dependency-free, lightweight, and opinionated utility library for building web applications.",
   "type": "module",
   "repository": {
@@ -70,9 +70,12 @@
     "./package.json": "./package.json"
   },
   "directories": {
-    "dist": "dist"
+    "core": "./dist/core",
+    "node": "./dist/node",
+    "web": "./dist/web"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ]
 }

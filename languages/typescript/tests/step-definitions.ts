@@ -3,6 +3,9 @@ import { Given, When, Then, world } from '@cucumber/cucumber'
 import { getSumFloat } from '@/core/data-types/floats/getSumFloat'
 import { getProductFloat } from '@/core/data-types/floats/getProductFloat'
 import { getAdjacentMathendArray } from '@/core/data-structures/arrays/getAdjacentMathendArray'
+import { getGroupConsolidatedCollectionArray } from '@/core/data-structures/arrays/getGroupConsolidatedCollectionArray'
+import { getUniqueValueIndicesFromMatrix } from '@/core/data-structures/matrices/getUniqueValueIndicesFromMatrix'
+import { getExclusiveValueSetIndicesFromMatrix } from '@/core/data-structures/matrices/getExclusiveValueSetIndicesFromMatrix'
 
 Given("the values {float} and {float}", (value1: number, value2: number) => {
     world.values = [value1, value2]
@@ -62,4 +65,38 @@ When("I request the adjacent mathends to the {word}", (direction: string) => {
 Then("I should get the following array", (table) => {
     const expected = table.raw().map((row: any[]) => row.map(value => parseFloat(value)))[0]
     assert.deepStrictEqual(world.result, expected)
+})
+
+Given("the following set of arrays", (table) => {
+    world.array = table.raw().map((row: any[]) => row.map(value => JSON.parse(value.trim())))[0]
+})
+
+When("I request the indices of the unique grouped sets", () => {
+    world.result = getGroupConsolidatedCollectionArray(world.array)
+})
+
+Then("I should get the following set of arrays", (table) => {
+    const expected = table.raw().map((row: any[]) => row.map(value => JSON.parse(value.trim())))[0]
+    console.log('Result:', world.result)
+    console.log('Expected:', expected)
+    assert.deepStrictEqual(world.result, expected)
+})
+
+Given("the following trimmed matrix", (table) => {
+    world.matrix = table.raw().map((row: any[]) => row.filter( value => value.trim()))
+})
+
+When("I request the unique value indices from the matrix", () => {
+    const { matrix } = world
+    world.result = getUniqueValueIndicesFromMatrix(matrix)
+});
+
+Then("I should get the following indices matrix", (table) => {
+    const expected = table.raw().map((row: any[]) => row.map(value => parseInt(value, 10)))
+    assert.deepStrictEqual(world.result, expected)
+});
+
+When("I request the exclusive value set indices from the matrix", () => {
+    const { matrix } = world
+    world.result = getExclusiveValueSetIndicesFromMatrix(matrix)
 })
