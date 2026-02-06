@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Sudoku</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "hyway/core": "../../languages/typescript/dist/index.js"
+      }
+    }
+  </script>
+  <script type="module" src="index.js" defer></script>
+</head>
+<body>
+  <div id="game-settings">
+    <input type="checkbox" id="instant-errors" checked>
+    <label for="instant-errors">Instant Errors</label>
+    <span> | </span>
+    <input type="checkbox" id="add-notes" />
+    <label for="add-notes">Add Notes</label>
+    <!-- <label for="difficulty">Difficulty:</label>
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+    <button id="new-game">New Game</button> -->
+  </div>
+  <div style="display: flex; flex-direction: row;">
+    <table class="sudoku"></table>
+    <div id="notes"></div>
+  </div>
+  <div id="selectable-values"></div>
+  <div>
+    <button id="solve">Solve</button>
+  </div>
+</body>
+</html>

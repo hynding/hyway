@@ -1,0 +1,72 @@
+:root {
+  --side-length: 40px;
+  --side-color: #ccc;
+  --edge-color: #333;
+  --edge-border: 1px solid var(--edge-color);
+}
+
+table.sudoku {
+  border: 1px solid #000;
+  border-spacing: 0px;
+
+  & tr {
+    & td {
+      width: var(--side-length);
+      height: var(--side-length);
+      border: 1px solid var(--side-color);
+      text-align: center;
+      font-size: 18px;
+      line-height: var(--side-length);
+
+      &.selected {
+        background-color: #ffeb3b;
+      }
+      &.static {
+        font-weight: bold;
+      }
+      &.top-edge {
+        border-top: var(--edge-border);
+      }
+      &.bottom-edge {
+        border-bottom: var(--edge-border);
+      }
+      &.left-edge {
+        border-left: var(--edge-border);
+      }
+      &.right-edge {
+        border-right: var(--edge-border);
+      }
+    }
+  }
+}
+
+#selectable-values {
+  button {
+    width: var(--side-length);
+    height: var(--side-length);
+    font-size: 18px;
+    line-height: var(--side-length);
+    margin: 2px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+
+    &.selected {
+      background-color: #ffeb3b;
+    }
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+}
+
+#notes {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(var(--side-length) * 9 + 16px); /* 9 cells + margins */
+  margin: 10px;
+  margin-left: 50px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
